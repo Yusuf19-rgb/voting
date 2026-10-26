@@ -1,0 +1,534 @@
+/* =====================================================================
+   TEMA E-VOTING OSIM / OSIS  v4  -  tampilan terang & modern (hijau + emas)
+   Menu aktif berupa tombol gradasi, semua tombol berubah warna saat disentuh.
+   Dimuat SETELAH style-asli.css (lihat style.css).
+   Semua selektor diawali "html body" agar menang atas CSS DataTables yang
+   dimuat belakangan di halaman data (pemilih, calon, pengawas).
+   Ubah warna cukup di blok :root.
+   ===================================================================== */
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+:root {
+    --hijau: #14783a;
+    --hijau-tua: #0b4a26;
+    --hijau-muda: #1f9a4d;
+    --hijau-pucat: #eaf5ee;
+    --emas: #f5b800;
+    --merah: #dc3545;
+    --tinta: #1d2b3a;
+    --abu: #7a8a82;
+    --abu-ikon: #a3b1aa;
+    --latar: #f5f8f6;
+    --garis: #e3ebe6;
+    --bayang: 0 4px 24px rgba(24, 48, 36, .07);
+}
+html body,
+html body p,
+html body .form-control,
+html body .btn,
+html body table.dataTable {
+    font-family: "Poppins", "Open Sans", Arial, sans-serif;
+}
+html body {
+    font-size: 15px;
+    color: var(--tinta);
+}
+html body p {
+    font-size: 15px;
+}
+html body .right-panel,
+html body .content {
+    background: var(--latar);
+}
+html body .content h1 {
+    color: var(--tinta);
+    font-weight: 700;
+}
+html body .content h1 > i.fa,
+html body .content h1 > .fa {
+    color: var(--hijau);
+}
+html body hr {
+    border-top-color: var(--garis);
+}
+html body a {
+    transition: color .15s;
+}
+html body a:hover {
+    color: var(--hijau-tua);
+}
+html body .right-panel header.header {
+    background: #fff;
+    border-bottom: 1px solid var(--garis);
+    box-shadow: 0 6px 22px rgba(24, 48, 36, .05);
+}
+html body .right-panel header.header .top-left {
+    border-bottom: 0;
+}
+html body .right-panel .menutoggle,
+html body .right-panel .menutoggle i {
+    color: var(--abu);
+    transition: color .15s;
+}
+html body .right-panel .menutoggle:hover,
+html body .right-panel .menutoggle:hover i {
+    color: var(--hijau);
+}
+html body .right-panel header.header .btn-outline-primary {
+    color: var(--hijau);
+    border: 1.5px solid #cfe3d6;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: none;
+}
+html body .right-panel header.header .btn-outline-primary:hover,
+html body .right-panel header.header .btn-outline-primary:focus {
+    background: linear-gradient(135deg, var(--hijau) 0%, var(--hijau-muda) 100%) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    box-shadow: 0 8px 18px rgba(20, 120, 58, .30);
+}
+html body aside.left-panel,
+html body aside.left-panel .navbar,
+html body aside.left-panel .navbar .main-menu {
+    background: #fff;
+}
+html body aside.left-panel {
+    box-shadow: 4px 0 30px rgba(24, 48, 36, .06);
+    border-right: 1px solid #eef2ef;
+}
+html body:not(.open) aside.left-panel .navbar .navbar-nav > li {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+html body aside.left-panel .navbar .navbar-nav > li.active {
+    background: transparent;
+}
+html body aside.left-panel .navbar .menu-title {
+    color: var(--abu-ikon);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    padding-left: 30px;
+}
+html body aside.left-panel .navbar .navbar-nav li > a {
+    color: var(--abu);
+    font-weight: 500;
+    border-radius: 12px;
+    padding-left: 14px;
+    padding-right: 14px;
+    margin: 2px 0;
+    transition: background .2s, color .2s, box-shadow .2s, transform .2s;
+}
+html body aside.left-panel .navbar .navbar-nav li > a .menu-icon {
+    color: var(--abu-ikon);
+    width: 46px;
+    transition: color .2s;
+}
+html body aside.left-panel .navbar .navbar-nav li > a:hover,
+html body aside.left-panel .navbar .navbar-nav li > a:focus {
+    background: var(--hijau-pucat) !important;
+    color: var(--hijau) !important;
+    transform: translateX(3px);
+}
+html body aside.left-panel .navbar .navbar-nav li > a:hover .menu-icon,
+html body aside.left-panel .navbar .navbar-nav li > a:focus .menu-icon {
+    color: var(--hijau) !important;
+}
+html body aside.left-panel .navbar .navbar-nav > li.active > a,
+html body aside.left-panel .navbar .navbar-nav > li.active > a:hover,
+html body aside.left-panel .navbar .navbar-nav > li.active > a:focus {
+    background: linear-gradient(135deg, var(--hijau) 0%, var(--hijau-muda) 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 10px 22px rgba(20, 120, 58, .32);
+    transform: none;
+}
+html body aside.left-panel .navbar .navbar-nav > li.active > a .menu-icon,
+html body aside.left-panel .navbar .navbar-nav > li.active > a:hover .menu-icon {
+    color: #fff !important;
+}
+html body aside.left-panel .navbar .navbar-nav li.menu-item-has-children a:before {
+    right: 14px;
+    border-color: var(--abu-ikon) var(--abu-ikon) transparent transparent;
+}
+html body aside.left-panel .navbar .navbar-nav li.menu-item-has-children a:hover:before {
+    border-color: var(--hijau) var(--hijau) transparent transparent;
+}
+html body aside.left-panel .navbar .navbar-nav li.menu-item-has-children.show > a {
+    color: var(--hijau);
+}
+html body aside.left-panel .navbar .navbar-nav li.menu-item-has-children.show > a:before {
+    border-color: transparent var(--hijau) var(--hijau) transparent;
+    right: 9px;
+}
+html body aside.left-panel .navbar .navbar-nav > li.active.menu-item-has-children > a:before {
+    border-color: #fff #fff transparent transparent;
+}
+html body aside.left-panel .navbar .navbar-nav li.menu-item-has-children .sub-menu {
+    background: transparent;
+    padding-left: 22px;
+}
+html body aside.left-panel .navbar .navbar-nav li.menu-item-has-children .sub-menu i {
+    color: var(--abu-ikon);
+    left: 10px;
+    top: 12px;
+    transition: color .2s;
+}
+html body aside.left-panel .navbar .navbar-nav li.menu-item-has-children .sub-menu a {
+    color: var(--abu);
+    padding: 6px 10px 6px 38px;
+    border-radius: 10px;
+}
+html body aside.left-panel .navbar .navbar-nav li.menu-item-has-children .sub-menu li:hover i {
+    color: var(--hijau);
+}
+html body aside.left-panel .navbar .navbar-nav li.menu-item-has-children .sub-menu a:hover {
+    background: var(--hijau-pucat) !important;
+    color: var(--hijau) !important;
+}
+html body .card,
+html body .container.bg-white,
+html body .footer-inner.bg-white,
+html body .modal-content {
+    border-radius: 16px;
+    border: 1px solid #f0f4f1;
+    box-shadow: var(--bayang);
+}
+html body .container.bg-white {
+    border-left: 5px solid var(--emas);
+    padding: 14px 20px;
+}
+html body .modal-content {
+    overflow: hidden;
+    border: 0;
+}
+html body .modal-header {
+    border-bottom: 1px solid var(--garis);
+}
+html body .card-header.bg-dark,
+html body .user-header.bg-dark,
+html body .card-header.user-header.alt.bg-dark {
+    background: linear-gradient(135deg, var(--hijau-tua) 0%, var(--hijau) 100%) !important;
+}
+html body .card-header.bg-dark p,
+html body .user-header p,
+html body .card-header .media-body p {
+    color: #fff;
+    margin-bottom: 0;
+}
+html body aside.profile-nav .card {
+    transition: transform .2s, box-shadow .2s;
+}
+html body aside.profile-nav .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(24, 48, 36, .14);
+}
+html body .btn {
+    border-radius: 12px;
+    font-weight: 600;
+    transition: background .18s, color .18s, border-color .18s, box-shadow .18s, transform .18s;
+}
+html body .btn:hover:not(:disabled):not(.disabled) {
+    transform: translateY(-1px);
+}
+html body .btn:active:not(:disabled):not(.disabled) {
+    transform: translateY(0);
+}
+html body .btn:focus {
+    box-shadow: 0 0 0 3px rgba(20, 120, 58, .22) !important;
+}
+html body .btn:disabled,
+html body .btn.disabled {
+    opacity: .55;
+}
+html body .btn-success,
+html body .btn-primary {
+    background: linear-gradient(135deg, var(--hijau) 0%, var(--hijau-muda) 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(20, 120, 58, .26);
+}
+html body .btn-success:hover,
+html body .btn-success:focus,
+html body .btn-success:active,
+html body .btn-primary:hover,
+html body .btn-primary:focus,
+html body .btn-primary:active {
+    background: linear-gradient(135deg, var(--hijau-tua) 0%, var(--hijau) 100%) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    box-shadow: 0 10px 22px rgba(20, 120, 58, .34);
+}
+html body .btn-danger {
+    background: linear-gradient(135deg, #ef5b6a 0%, var(--merah) 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(220, 53, 69, .25);
+}
+html body .btn-danger:hover,
+html body .btn-danger:focus,
+html body .btn-danger:active {
+    background: linear-gradient(135deg, #a32230 0%, #c82333 100%) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    box-shadow: 0 10px 22px rgba(200, 35, 51, .36);
+}
+html body .btn-warning {
+    background: linear-gradient(135deg, #ffd24d 0%, var(--emas) 100%);
+    border-color: transparent;
+    color: #3b2f00;
+    box-shadow: 0 6px 14px rgba(245, 184, 0, .30);
+}
+html body .btn-warning:hover,
+html body .btn-warning:focus,
+html body .btn-warning:active {
+    background: linear-gradient(135deg, #e0a200 0%, #c98f00 100%) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    box-shadow: 0 10px 22px rgba(201, 143, 0, .38);
+}
+html body .btn-info {
+    background: linear-gradient(135deg, #2bb6c9 0%, #17a2b8 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(23, 162, 184, .26);
+}
+html body .btn-info:hover,
+html body .btn-info:focus,
+html body .btn-info:active {
+    background: linear-gradient(135deg, #0f7e8f 0%, #117a8b 100%) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+}
+html body .btn-secondary,
+html body .btn-light {
+    background: #eef3ef;
+    border-color: transparent;
+    color: #4c5c54;
+}
+html body .btn-secondary:hover,
+html body .btn-secondary:focus,
+html body .btn-secondary:active,
+html body .btn-light:hover,
+html body .btn-light:focus,
+html body .btn-light:active {
+    background: #cfe3d6 !important;
+    border-color: transparent !important;
+    color: var(--hijau-tua) !important;
+}
+html body .btn-outline-primary,
+html body .btn-outline-success {
+    color: var(--hijau);
+    border-color: var(--hijau);
+    background: transparent;
+}
+html body .btn-outline-primary:hover,
+html body .btn-outline-primary:focus,
+html body .btn-outline-primary:active,
+html body .btn-outline-success:hover,
+html body .btn-outline-success:focus,
+html body .btn-outline-success:active {
+    background: linear-gradient(135deg, var(--hijau) 0%, var(--hijau-muda) 100%) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    box-shadow: 0 8px 18px rgba(20, 120, 58, .30);
+}
+html body .btn-outline-danger {
+    color: var(--merah);
+    border-color: var(--merah);
+    background: transparent;
+}
+html body .btn-outline-danger:hover,
+html body .btn-outline-danger:focus,
+html body .btn-outline-danger:active {
+    background: linear-gradient(135deg, #ef5b6a 0%, #c82333 100%) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    box-shadow: 0 8px 18px rgba(220, 53, 69, .32);
+}
+html body .btn-outline-warning {
+    color: #b07f00;
+    border-color: var(--emas);
+    background: transparent;
+}
+html body .btn-outline-warning:hover,
+html body .btn-outline-warning:focus,
+html body .btn-outline-warning:active {
+    background: linear-gradient(135deg, #ffd24d 0%, #e0a200 100%) !important;
+    border-color: transparent !important;
+    color: #3b2f00 !important;
+    box-shadow: 0 8px 18px rgba(245, 184, 0, .36);
+}
+html body .btn-outline-info {
+    color: #17a2b8;
+    border-color: #17a2b8;
+    background: transparent;
+}
+html body .btn-outline-info:hover,
+html body .btn-outline-info:focus,
+html body .btn-outline-info:active {
+    background: #17a2b8 !important;
+    border-color: transparent !important;
+    color: #fff !important;
+}
+html body .btn-outline-secondary {
+    color: #4c5c54;
+    border-color: #b9c6be;
+    background: transparent;
+}
+html body .btn-outline-secondary:hover,
+html body .btn-outline-secondary:focus,
+html body .btn-outline-secondary:active {
+    background: #4c5c54 !important;
+    border-color: transparent !important;
+    color: #fff !important;
+}
+html body .close {
+    transition: color .15s, transform .15s;
+}
+html body .close:hover {
+    color: var(--merah) !important;
+    opacity: 1;
+    transform: rotate(90deg);
+}
+html body .dropdown-menu {
+    border: 1px solid var(--garis);
+    border-radius: 12px;
+    box-shadow: var(--bayang);
+}
+html body .dropdown-item {
+    transition: background .15s, color .15s;
+}
+html body .dropdown-item:hover,
+html body .dropdown-item:focus {
+    background: var(--hijau-pucat);
+    color: var(--hijau);
+}
+html body .form-control {
+    border: 1.5px solid var(--garis);
+    border-radius: 12px;
+    background: #f8fbf9;
+}
+html body .form-control:focus {
+    border-color: var(--hijau);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(20, 120, 58, .14);
+}
+html body input[type="checkbox"],
+html body input[type="radio"] {
+    accent-color: var(--hijau);
+}
+html body .table thead th,
+html body table.dataTable thead th {
+    background: #eef6f1;
+    color: var(--hijau-tua);
+    border-bottom: 2px solid var(--hijau) !important;
+    font-weight: 600;
+}
+html body .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #fafcfb;
+}
+html body .table-hover tbody tr:hover,
+html body table.dataTable tbody tr:hover {
+    background-color: rgba(20, 120, 58, .07) !important;
+}
+html body .table-bordered td,
+html body .table-bordered th {
+    border-color: var(--garis);
+}
+html body .dataTables_wrapper .dataTables_filter input,
+html body .dataTables_wrapper .dataTables_length select {
+    border: 1.5px solid var(--garis);
+    border-radius: 10px;
+    padding: 4px 10px;
+}
+html body .dataTables_wrapper .dataTables_filter input:focus {
+    outline: none;
+    border-color: var(--hijau);
+    box-shadow: 0 0 0 3px rgba(20, 120, 58, .14);
+}
+html body .pagination > li > a,
+html body .page-link {
+    color: var(--hijau);
+    border-radius: 8px;
+    transition: background .15s, color .15s;
+}
+html body .pagination > li > a:hover,
+html body .page-link:hover {
+    color: #fff;
+    background: var(--hijau);
+    border-color: var(--hijau);
+}
+html body .pagination > .active > a,
+html body .pagination > .active > a:hover,
+html body .pagination > .active > a:focus,
+html body .page-item.active .page-link {
+    background-color: var(--hijau);
+    border-color: var(--hijau);
+    color: #fff;
+}
+html body .content > .clearfix:not(:empty) {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #f0f4f1;
+    box-shadow: var(--bayang);
+    padding: 18px 20px;
+    margin-bottom: 24px;
+}
+html body table.dataTable.no-footer {
+    border-bottom: 1px solid var(--garis);
+}
+html body .dataTables_wrapper .dataTables_paginate .paginate_button {
+    border-radius: 10px !important;
+    color: var(--hijau) !important;
+    border: 1px solid transparent !important;
+    background: transparent !important;
+    transition: background .15s, color .15s;
+}
+html body .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: var(--hijau-pucat) !important;
+    color: var(--hijau-tua) !important;
+    border-color: transparent !important;
+}
+html body .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+html body .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: linear-gradient(135deg, var(--hijau) 0%, var(--hijau-muda) 100%) !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    box-shadow: 0 6px 14px rgba(20, 120, 58, .28);
+}
+html body .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+html body .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+    color: #b6c2bb !important;
+    background: transparent !important;
+    box-shadow: none;
+}
+html body .alert {
+    border-radius: 12px;
+    border: 0;
+}
+html body .alert-success {
+    background: #e3f4e9;
+    color: #0b4a26;
+}
+html body .badge-primary {
+    background: var(--hijau);
+}
+html body .breadcrumb {
+    background: #fff;
+    border-radius: 12px;
+}
+@media (max-width: 767px) {
+    html body .content {
+        padding: 1.1em;
+    }
+    html body .container.bg-white {
+        padding: 12px 14px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    html body .btn,
+    html body aside.left-panel .navbar .navbar-nav li > a {
+        transition: none;
+        transform: none !important;
+    }
+}

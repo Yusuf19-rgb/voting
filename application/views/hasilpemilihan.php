@@ -104,7 +104,7 @@ if($login=='loginadmin'){
     
             
     
-        <h1><i class="fa fa-bar-chart-o"> </i> Hasil Pemilihan</h1>
+        <h1><i class="fa fa-bar-chart-o"> </i> Hasil Pemilihan <small id="liveStatus" class="live-status"><span class="live-dot"></span><span id="liveText">Memuat...</span></small></h1>
         <hr>
         <a class="btn btn-success" href="<?php echo base_url('Hasilpilih/export'); ?>"><i class="fa fa-print">
         </i> Cetak</a>
@@ -144,9 +144,9 @@ if($login=='loginadmin'){
         <hr> 
         <div class="container">
             <div class="row">
-              <div class="col-4"> DPT : <?php echo $nototal; ?> <br> Sudah absen belum memilih : <?php echo $sudahabsenbelummilih; ?> </div>
-              <div class="col-4 text-center"> Sudah Memilih : <?php echo $sudahmemilih; ?><br>Sudah Absen : <?php echo $sudahabsen; ?></div>
-              <div class="col-4 text-right"> Belum Memilih : <?php echo $belummemilih; ?><br>Belum Absen : <?php echo $belumabsen; ?></div>
+              <div class="col-4"> DPT : <span data-live="dpt"><?php echo $nototal; ?></span> <br> Sudah absen belum memilih : <span data-live="absen_belum_memilih"><?php echo $sudahabsenbelummilih; ?></span> </div>
+              <div class="col-4 text-center"> Sudah Memilih : <span data-live="sudah_memilih"><?php echo $sudahmemilih; ?></span><br>Sudah Absen : <span data-live="sudah_absen"><?php echo $sudahabsen; ?></span></div>
+              <div class="col-4 text-right"> Belum Memilih : <span data-live="belum_memilih"><?php echo $belummemilih; ?></span><br>Belum Absen : <span data-live="belum_absen"><?php echo $belumabsen; ?></span></div>
           </div>
         </div>
         <hr>
@@ -194,8 +194,8 @@ if($login=='loginadmin'){
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <center>
-                                        <h1><br><?php echo $totalsuara;?> Suara</h1>
-                                        <h3><?php $persen=($vs['selesai'])?(($vs['total_suara']>0)?($totalsuara/$vs['total_suara'])*100:0):(($nototal>0)?($totalsuara/$nototal)*100:0); echo round($persen,1); ?> %</h3><?php if($vs['selesai']){ echo '<small class="text-muted">dari suara masuk</small>'; } ?><?php if(in_array($id,$vs['pemenang_id'])){ echo '<h4><span class="badge badge-success">'.($vs['seri']?'SERI':'PEMENANG').'</span></h4>'; } ?>
+                                        <h1><br><span data-live-suara="<?php echo $id; ?>"><?php echo $totalsuara;?></span> Suara</h1>
+                                        <h3><span data-live-persen="<?php echo $id; ?>"><?php $persen=($vs['selesai'])?(($vs['total_suara']>0)?($totalsuara/$vs['total_suara'])*100:0):(($nototal>0)?($totalsuara/$nototal)*100:0); echo round($persen,1); ?></span> %</h3><?php if($vs['selesai']){ echo '<small class="text-muted">dari suara masuk</small>'; } ?><?php if(in_array($id,$vs['pemenang_id'])){ echo '<h4><span class="badge badge-success">'.($vs['seri']?'SERI':'PEMENANG').'</span></h4>'; } ?>
                                         <br><br>
                                     </center>
                                     </li>
@@ -581,6 +581,7 @@ if($login=='loginadmin'){
 
 
 
+<?php $this->load->view('live_hasil', array('live_url'=>base_url('Hasilpilih/data'), 'live_selesai'=>$vs['selesai'])); ?>
 <div id="container">
   
  

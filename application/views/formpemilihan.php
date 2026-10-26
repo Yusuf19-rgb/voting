@@ -50,7 +50,7 @@ if($login=='loginadmin'){
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <div class="row">
-                    <div class="col-3"><img src="<?php echo base_url('images/logo bt'); ?>"></div>
+                    <div class="col-3"><img src="<?php echo base_url('images/logo.png'); ?>"></div>
                     <div class="col text-left"><b>Halo : <?php echo $this->session->userdata('nama'); ?> </b><br>Silahkan tentukan pilihanmu!</div>
                 </div>
             </li>
@@ -61,7 +61,7 @@ if($login=='loginadmin'){
                 
 
                 
-                  <div class="row">
+                  <div class="row justify-content-center">
                     <?php $no=1;
                         foreach($data->result_array() as $i):
                                 $id=$i['id'];
@@ -71,9 +71,9 @@ if($login=='loginadmin'){
                               $foto=$i['foto']; 
                               $totalsuara=$i['totalsuara'];        
                   ?>
-                    <div class="col-md-3">
-                        <aside class="profile-nav alt">
-                            <section class="card">
+                    <div class="col-12 col-md d-flex" style="min-width:260px;">
+                        <aside class="profile-nav alt w-100">
+                            <section class="card h-100">
                                 <form action="<?php echo base_url('index.php/form/pilih/'.$id.''); ?>">
                                 <div class="card-header user-header alt bg-dark">
                                     <div class="media">                            
@@ -86,7 +86,7 @@ if($login=='loginadmin'){
                                     <li class="list-group-item">
                                         <center>
                                         <h1>
-                                            <img class="align-self-center" style="width:240px; height:320px;" alt="" src="<?php echo base_url('upload/'.$foto)?>">
+                                            <img class="align-self-center" style="width:100%; max-width:340px; height:auto;" alt="" src="<?php echo base_url('upload/'.$foto)?>">
                                         </h1>
                                         </center><br>
                                         <div>

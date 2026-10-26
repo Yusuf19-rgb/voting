@@ -54,4 +54,19 @@ class Pengawas extends CI_Controller {
             $x['datapemilih']=$this->mp->show_pemilih();
             $this->load->view('hasilpemilihanpeng',$x);
 	}
+
+	// Data JSON untuk pembaruan otomatis halaman hasil pengawas
+	public function hasildata(){
+		$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+		$this->output->set_content_type('application/json');
+		if($this->session->userdata('status')!='loginpengawas'){
+			$this->output->set_status_header(401);
+			$this->output->set_output(json_encode(array('error'=>'login')));
+			return;
+		}
+		$this->load->model('M_calon','mc');
+		$this->load->model('M_pengaturan','mset');
+		$out=$this->mset->data_langsung($this->mp->show_pemilih()->result_array(), $this->mc->show_calon()->result_array());
+		$this->output->set_output(json_encode($out));
+	}
 }

@@ -100,4 +100,48 @@ class M_pengaturan extends CI_Model {
 			'seri'         => (count($ids) > 1)
 		);
 	}
+
+	/**
+	 * Data ringkas untuk pembaruan otomatis halaman hasil (dikirim sebagai JSON).
+	 * $pemilih : show_pemilih()->result_array()   $calon : show_calon()->result_array()
+	 */
+	public function data_langsung($pemilih, $calon)
+	{
+		$dpt = 0; $sudah = 0; $belum = 0; $absen = 0; $belumabsen = 0; $absenbelum = 0;
+		foreach ($pemilih as $p) {
+			$dpt++;
+			$memilih = ((string) $p['suara'] !== '0' && (string) $p['suara'] !== '');
+			$hadir   = ((string) $p['absen'] !== '0' && (string) $p['absen'] !== '');
+			if ($memilih) { $sudah++; } else { $belum++; }
+			if ($hadir)   { $absen++; } else { $belumabsen++; }
+			if (!$memilih && $hadir) { $absenbelum++; }
+		}
+
+		$vs = $this->ringkasan($calon);
+		$daftar = array();
+		foreach ($calon as $c) {
+			$t = (int) $c['totalsuara'];
+			if ($vs['selesai']) {
+				$persen = ($vs['total_suara'] > 0) ? ($t / $vs['total_suara']) * 100 : 0;
+			} else {
+				$persen = ($dpt > 0) ? ($t / $dpt) * 100 : 0;
+			}
+			// teks persen: 1 desimal, tanpa nol di belakang (sama dengan tampilan halaman)
+			$teks = rtrim(rtrim(number_format($persen, 1, '.', ''), '0'), '.');
+			$daftar[] = array('id' => (string) $c['id'], 'suara' => $t, 'persen' => ($teks === '' ? '0' : $teks));
+		}
+
+		$dt = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+		return array(
+			'dpt'                 => $dpt,
+			'sudah_memilih'       => $sudah,
+			'belum_memilih'       => $belum,
+			'sudah_absen'         => $absen,
+			'belum_absen'         => $belumabsen,
+			'absen_belum_memilih' => $absenbelum,
+			'selesai'             => $vs['selesai'],
+			'calon'               => $daftar,
+			'waktu'               => $dt->format('H:i:s')
+		);
+	}
 }

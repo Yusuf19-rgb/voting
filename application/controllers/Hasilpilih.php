@@ -39,4 +39,17 @@ class Hasilpilih extends CI_Controller {
             $this->session->set_flashdata('success_msg','Voting dibuka kembali.');
             redirect(base_url('Hasilpilih'));
       }
+
+      // Data JSON untuk pembaruan otomatis (dipanggil berkala oleh halaman hasil)
+      public function data(){
+            $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+            $this->output->set_content_type('application/json');
+            if($this->session->userdata('status')!='loginadmin'){
+                  $this->output->set_status_header(401);
+                  $this->output->set_output(json_encode(array('error'=>'login')));
+                  return;
+            }
+            $out=$this->mset->data_langsung($this->mp->show_pemilih()->result_array(), $this->mc->show_calon()->result_array());
+            $this->output->set_output(json_encode($out));
+      }
 }

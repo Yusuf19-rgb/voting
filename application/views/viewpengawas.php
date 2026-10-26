@@ -57,7 +57,7 @@ if($login=='loginpengawas'){
         <header id="header" class="header">  
             <div class="top-left">
                 <div class="navbar-header"> 
-                    <a class="navbar-brand" href=""><img src="images/logo bt" alt="Logo"></a>
+                    <a class="navbar-brand" href=""><img src="images/logo.png" alt="Logo"></a>
                 </div> 
             </div>
             <div style="position: fixed;right: 30px; top: 10px;">
@@ -75,6 +75,11 @@ if($login=='loginpengawas'){
         <hr>
         <div >
                 <a href="Pengawas/hasilpemilihan" class="btn btn-success" >Hasil Pemilihan</a>
+                <select id="filterKelas" class="form-control d-inline-block" style="width:auto; vertical-align:middle;" title="Tampilkan per kelas">
+                    <option value="">Semua User</option>
+                    <?php foreach($this->mp->daftar_kelas() as $kk){ echo '<option value="'.$kk.'">Kelas '.$kk.'</option>'; } ?>
+                    <option value="Guru">Guru</option>
+                </select>
         </div>
         <hr>
 <?php if($this->session->flashdata('success_msg')){
@@ -225,7 +230,23 @@ if($login=='loginpengawas'){
 
     <script type="text/javascript">
     $(document).ready(function(){
-        $('.dataku').DataTable();
+        var tabel = $('.dataku').DataTable();
+
+        // Filter per kelas (kolom Kelas = indeks 3); pilihan diingat saat halaman dimuat ulang
+        function terapkanFilter(nilai){
+            tabel.column(3).search(nilai ? '^' + nilai : '', true, false).draw();
+        }
+        $('#filterKelas').on('change', function(){
+            try { sessionStorage.setItem('filterKelasPengawas', this.value); } catch(e){}
+            terapkanFilter(this.value);
+        });
+        try {
+            var simpan = sessionStorage.getItem('filterKelasPengawas');
+            if (simpan && $('#filterKelas option[value="' + simpan + '"]').length) {
+                $('#filterKelas').val(simpan);
+                terapkanFilter(simpan);
+            }
+        } catch(e){}
     });
 	</script>
 
