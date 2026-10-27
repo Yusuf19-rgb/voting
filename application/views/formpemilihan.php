@@ -86,7 +86,7 @@ if($login=='loginadmin'){
                                     <li class="list-group-item">
                                         <center>
                                         <h1>
-                                            <img class="align-self-center" style="width:100%; max-width:340px; height:auto;" alt="" src="<?php echo base_url('upload/'.$foto)?>">
+                                            <img class="align-self-center" style="width:auto; max-width:100%; max-height:62vh; height:auto;" alt="" src="<?php echo base_url('upload/'.$foto)?>">
                                         </h1>
                                         </center><br>
                                         <div>
