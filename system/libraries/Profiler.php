@@ -105,7 +105,7 @@ class CI_Profiler {
 		{
 			if ( ! isset($config[$section]))
 			{
-				$this->_compile_{$section} = TRUE;
+				$this->{'_compile_'.$section} = TRUE;
 			}
 		}
 
@@ -135,7 +135,7 @@ class CI_Profiler {
 		{
 			if (in_array($method, $this->_available_sections))
 			{
-				$this->_compile_{$method} = ($enable !== FALSE);
+				$this->{'_compile_'.$method} = ($enable !== FALSE);
 			}
 		}
 	}
@@ -150,7 +150,7 @@ class CI_Profiler {
 	 * and "_end" respectively).  It then compiles the execution times for
 	 * all points and returns it as an array
 	 *
-	 * @return	array
+	 * @return	string
 	 */
 	protected function _compile_benchmarks()
 	{
@@ -513,7 +513,7 @@ class CI_Profiler {
 	{
 		if ( ! isset($this->CI->session))
 		{
-			return;
+			return '';
 		}
 
 		$output = '<fieldset id="ci_profiler_csession" style="border:1px solid #000;padding:6px 10px 10px 10px;margin:20px 0 20px 0;background-color:#eee;">'
@@ -554,7 +554,7 @@ class CI_Profiler {
 
 		foreach ($this->_available_sections as $section)
 		{
-			if ($this->_compile_{$section} !== FALSE)
+			if ($this->{'_compile_'.$section} !== FALSE)
 			{
 				$func = '_compile_'.$section;
 				$output .= $this->{$func}();

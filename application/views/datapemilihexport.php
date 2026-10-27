@@ -43,20 +43,20 @@ if(!function_exists('e_kartu')){ function e_kartu($t){ return htmlspecialchars((
         .bar .kembali { background: #eaf2ec; color: #14783a; }
         .bar .kembali:hover { background: #cfe3d6; }
 
-        /* lembar kartu: 2 kolom x 5 baris per halaman A4 */
-        .lembar { display: grid; grid-template-columns: repeat(2, 1fr); width: 194mm; margin: 14px auto; background: #fff; }
-        .kartu { height: 55mm; padding: 3.5mm 4.5mm 3mm; border: 1px dashed #8a948f; display: flex; flex-direction: column; page-break-inside: avoid; break-inside: avoid; overflow: hidden; }
-        .kartu-atas { display: flex; align-items: center; gap: 8px; padding-bottom: 5px; border-bottom: 2px solid #14783a; }
-        .kartu-atas img { height: 10mm; width: auto; }
-        .kartu-atas .judul { font-size: 10px; line-height: 1.25; color: #4c5c54; }
-        .kartu-atas .judul b { display: block; font-size: 12px; color: #14783a; letter-spacing: .6px; }
-        .kartu-nama { margin-top: 5px; font-size: 13px; font-weight: 700; line-height: 1.2; max-height: 2.4em; overflow: hidden; text-transform: uppercase; }
-        .kartu-kelas { font-size: 10.5px; color: #6b7a8a; margin: 1px 0 4px; }
-        .kartu-akun { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-        .kartu-akun div { border: 1px solid #14783a; border-radius: 6px; padding: 3px 6px; background: #f3faf5; }
-        .kartu-akun span { display: block; font-size: 8.5px; color: #6b7a8a; text-transform: uppercase; letter-spacing: .5px; }
-        .kartu-akun b { display: block; font-family: "Courier New", Courier, monospace; font-size: 15px; letter-spacing: .5px; word-break: break-all; }
-        .kartu-bawah { margin-top: auto; font-size: 8.5px; color: #4c5c54; line-height: 1.3; text-align: center; }
+        /* lembar kartu: 3 kolom x 6 baris = 18 kartu per halaman A4 */
+        .lembar { display: grid; grid-template-columns: repeat(3, 1fr); width: 194mm; margin: 14px auto; background: #fff; }
+        .kartu { height: 46mm; padding: 2.5mm 3mm 2mm; border: 1px dashed #8a948f; display: flex; flex-direction: column; page-break-inside: avoid; break-inside: avoid; overflow: hidden; }
+        .kartu-atas { display: flex; align-items: center; gap: 6px; padding-bottom: 3px; border-bottom: 2px solid #14783a; }
+        .kartu-atas img { height: 7mm; width: auto; }
+        .kartu-atas .judul { font-size: 8.5px; line-height: 1.25; color: #4c5c54; }
+        .kartu-atas .judul b { display: block; font-size: 10.5px; color: #14783a; letter-spacing: .5px; }
+        .kartu-nama { margin-top: 3px; font-size: 11.5px; font-weight: 700; line-height: 1.2; max-height: 2.4em; overflow: hidden; text-transform: uppercase; }
+        .kartu-kelas { font-size: 9px; color: #6b7a8a; margin: 1px 0 3px; }
+        .kartu-akun { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+        .kartu-akun div { border: 1px solid #14783a; border-radius: 5px; padding: 2px 5px; background: #f3faf5; }
+        .kartu-akun span { display: block; font-size: 7.5px; color: #6b7a8a; text-transform: uppercase; letter-spacing: .5px; }
+        .kartu-akun b { display: block; font-family: "Courier New", Courier, monospace; font-size: 13px; letter-spacing: .3px; word-break: break-all; }
+        .kartu-bawah { margin-top: auto; font-size: 7px; color: #4c5c54; line-height: 1.3; text-align: center; }
         .kosong { padding: 40px; text-align: center; color: #6b7a8a; }
 
         @media print {
@@ -71,7 +71,7 @@ if(!function_exists('e_kartu')){ function e_kartu($t){ return htmlspecialchars((
 
 <div class="bar">
     <h1>Kartu Pemilih &middot; <?php echo e_kartu($organisasi); ?>
-        <small><?php echo count($daftar); ?> kartu &middot; gunting mengikuti garis putus-putus &middot; urut per kelas</small>
+        <small><?php echo count($daftar); ?> kartu &middot; 18 kartu per lembar A4 &middot; gunting mengikuti garis putus-putus &middot; urut per kelas</small>
     </h1>
     <a class="kembali" href="<?php echo base_url('Datapem'); ?>">&larr; Kembali</a>
     <button class="cetak" type="button" onclick="window.print()">Cetak Kartu</button>
@@ -84,7 +84,7 @@ if(!function_exists('e_kartu')){ function e_kartu($t){ return htmlspecialchars((
     <?php foreach($daftar as $i){ ?>
     <div class="kartu">
         <div class="kartu-atas">
-            <img src="<?php echo $logo; ?>" alt="Logo">
+            <img src="<?php echo $logo; ?>" alt="" onerror="logoGagal(this)">
             <div class="judul"><b>KARTU PEMILIH</b><?php echo e_kartu($organisasi); ?></div>
         </div>
         <div class="kartu-nama"><?php echo e_kartu($i['namasiswa']); ?></div>
@@ -93,15 +93,27 @@ if(!function_exists('e_kartu')){ function e_kartu($t){ return htmlspecialchars((
             <div><span>ID</span><b><?php echo e_kartu($i['nis']); ?></b></div>
             <div><span>Password</span><b><?php echo e_kartu($i['password']); ?></b></div>
         </div>
-        <div class="kartu-bawah">Buka <b><?php echo e_kartu($alamat); ?></b>, pilih <b><?php echo $smk ? 'SMK' : 'MTs'; ?></b>, lalu masuk dengan ID &amp; password di atas. Rahasiakan kartu ini.</div>
+        <div class="kartu-bawah">Buka <b><?php echo e_kartu($alamat); ?></b>, pilih <b><?php echo $smk ? 'SMK' : 'MTs'; ?></b>, masuk dengan ID &amp; password di atas. Rahasiakan kartu ini.</div>
     </div>
     <?php } ?>
 </div>
 <?php } ?>
 
 <script>
+    // Bila logo sekolah tidak ada di server: coba logo.png, kalau tetap gagal sembunyikan (agar tidak tercetak ikon rusak)
+    function logoGagal(img) {
+        if (!img.getAttribute('data-coba')) {
+            img.setAttribute('data-coba', '1');
+            img.src = '<?php echo base_url('images/logo.png'); ?>';
+        } else {
+            img.style.display = 'none';
+        }
+    }
+</script>
+<script>
     // Cetak otomatis setelah logo selesai dimuat
     window.addEventListener('load', function () { setTimeout(function () { window.print(); }, 300); });
 </script>
+
 </body>
 </html>
